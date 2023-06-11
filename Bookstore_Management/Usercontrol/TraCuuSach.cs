@@ -21,6 +21,7 @@ namespace Bookstore_Management
         public TraCuuSach()
         {
             InitializeComponent();
+
             connectionString= "Data Source=DESKTOP-EQ1GSOP\\SQLEXPRESS;Initial Catalog=QLNS;Integrated Security=True;";
             connection = new SqlConnection(connectionString);
             adapter = new SqlDataAdapter();
@@ -38,45 +39,62 @@ namespace Bookstore_Management
         }
 
         private void PerformSearch()
-        {
-            //
+        {   
             String bookTitle = textBox_TenSach.Text;
             String bookCategory = textBox_TheLoai.Text;
             string query = "SELECT * FROM THONGTINSACH WHERE TenSach LIKE @BookName AND TheLoai LIKE @Category";
 
-            // Tạo đối tượng SqlCommand
             SqlCommand command = new SqlCommand(query, connection);
             command.Parameters.AddWithValue("@BookName", "%" + bookTitle + "%");
             command.Parameters.AddWithValue("@Category", "%" + bookCategory + "%");
-
-            // Gán SqlCommand cho SqlDataAdapter
             adapter.SelectCommand = command;
 
             try
             {
-                // Mở kết nối
                 connection.Open();
-
-                // Đổ dữ liệu từ database vào DataTable
-                dataTable.Clear(); // Xóa dữ liệu cũ trước khi đổ mới
+                dataTable.Clear(); 
                 adapter.Fill(dataTable);
-
-                // Hiển thị kết quả tra cứu trên GridView
                 dataGridView_NhapSach.DataSource = dataTable;
-                //dataGridViewBooks.DataSource = dataTable;
             }
             catch (Exception ex)
             {
-                // Xử lý exception (nếu cần)
                 MessageBox.Show("Lỗi truy vấn: " + ex.Message);
             }
             finally
             {
-                // Đóng kết nối
                 connection.Close();
             }
 
         }
 
+        private void TraCuuSach_Load(object sender, EventArgs e)
+        {
+            //UpdateGridView();
+            //PerformSearch();
+        }
+
+        private void UpdateGridView()
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+
+                string query = "SELECT * FROM THONGTINSACH";
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    SqlDataAdapter adapter = new SqlDataAdapter(command);
+                    DataTable dataTable = new DataTable();
+                    adapter.Fill(dataTable);
+                    dataGridView_NhapSach.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+                    dataGridView_NhapSach.DataSource = dataTable;
+                }
+            }
+        }
+
+        private void TraCuuSach_Load_1(object sender, EventArgs e)
+        {
+            UpdateGridView();
+        }
     }
 }

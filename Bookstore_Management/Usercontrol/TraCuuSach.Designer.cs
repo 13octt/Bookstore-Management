@@ -54,11 +54,11 @@ namespace Bookstore_Management
             // dataGridView_NhapSach
             // 
             this.dataGridView_NhapSach.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView_NhapSach.Location = new System.Drawing.Point(31, 8);
+            this.dataGridView_NhapSach.Location = new System.Drawing.Point(31, 3);
             this.dataGridView_NhapSach.Name = "dataGridView_NhapSach";
             this.dataGridView_NhapSach.RowHeadersWidth = 51;
             this.dataGridView_NhapSach.RowTemplate.Height = 24;
-            this.dataGridView_NhapSach.Size = new System.Drawing.Size(850, 495);
+            this.dataGridView_NhapSach.Size = new System.Drawing.Size(850, 500);
             this.dataGridView_NhapSach.TabIndex = 0;
             // 
             // label1
@@ -82,7 +82,7 @@ namespace Bookstore_Management
             this.panel_head.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel_head.Location = new System.Drawing.Point(0, 0);
             this.panel_head.Name = "panel_head";
-            this.panel_head.Size = new System.Drawing.Size(913, 135);
+            this.panel_head.Size = new System.Drawing.Size(913, 130);
             this.panel_head.TabIndex = 2;
             // 
             // textBox_TheLoai
@@ -136,6 +136,7 @@ namespace Bookstore_Management
             this.Controls.Add(this.panel_Data);
             this.Name = "TraCuuSach";
             this.Size = new System.Drawing.Size(913, 661);
+            this.Load += new System.EventHandler(this.TraCuuSach_Load_1);
             this.panel_Data.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_NhapSach)).EndInit();
             this.panel_head.ResumeLayout(false);
