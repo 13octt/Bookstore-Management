@@ -34,6 +34,7 @@ namespace Bookstore_Management
             this.pictureBox_Avatar = new System.Windows.Forms.PictureBox();
             this.pictureBox_Exit = new System.Windows.Forms.PictureBox();
             this.panel_TaiKhoan = new System.Windows.Forms.Panel();
+            this.button_Add = new System.Windows.Forms.Button();
             this.textBox_MatKhau = new System.Windows.Forms.TextBox();
             this.textBox_TenTK = new System.Windows.Forms.TextBox();
             this.comboBox_MaND = new System.Windows.Forms.ComboBox();
@@ -47,7 +48,6 @@ namespace Bookstore_Management
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.dataGridView_TaiKhoan = new System.Windows.Forms.DataGridView();
-            this.button_Add = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Avatar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Exit)).BeginInit();
@@ -121,6 +121,21 @@ namespace Bookstore_Management
             this.panel_TaiKhoan.Size = new System.Drawing.Size(876, 642);
             this.panel_TaiKhoan.TabIndex = 3;
             // 
+            // button_Add
+            // 
+            this.button_Add.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(179)))), ((int)(((byte)(188)))));
+            this.button_Add.FlatAppearance.BorderSize = 0;
+            this.button_Add.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_Add.Font = new System.Drawing.Font("Arial", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button_Add.ForeColor = System.Drawing.Color.White;
+            this.button_Add.Location = new System.Drawing.Point(33, 572);
+            this.button_Add.Name = "button_Add";
+            this.button_Add.Size = new System.Drawing.Size(235, 49);
+            this.button_Add.TabIndex = 18;
+            this.button_Add.Text = "THÊM";
+            this.button_Add.UseVisualStyleBackColor = false;
+            this.button_Add.Click += new System.EventHandler(this.button_Add_Click);
+            // 
             // textBox_MatKhau
             // 
             this.textBox_MatKhau.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -129,6 +144,7 @@ namespace Bookstore_Management
             this.textBox_MatKhau.Size = new System.Drawing.Size(202, 30);
             this.textBox_MatKhau.TabIndex = 17;
             this.textBox_MatKhau.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.textBox_MatKhau.TextChanged += new System.EventHandler(this.textBox_MatKhau_TextChanged);
             // 
             // textBox_TenTK
             // 
@@ -138,6 +154,7 @@ namespace Bookstore_Management
             this.textBox_TenTK.Size = new System.Drawing.Size(202, 30);
             this.textBox_TenTK.TabIndex = 16;
             this.textBox_TenTK.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.textBox_TenTK.TextChanged += new System.EventHandler(this.textBox_TenTK_TextChanged);
             // 
             // comboBox_MaND
             // 
@@ -147,6 +164,7 @@ namespace Bookstore_Management
             this.comboBox_MaND.Name = "comboBox_MaND";
             this.comboBox_MaND.Size = new System.Drawing.Size(163, 31);
             this.comboBox_MaND.TabIndex = 15;
+            this.comboBox_MaND.SelectedIndexChanged += new System.EventHandler(this.comboBox_MaND_SelectedIndexChanged);
             // 
             // comboBox_VaiTro
             // 
@@ -156,6 +174,7 @@ namespace Bookstore_Management
             this.comboBox_VaiTro.Name = "comboBox_VaiTro";
             this.comboBox_VaiTro.Size = new System.Drawing.Size(163, 32);
             this.comboBox_VaiTro.TabIndex = 14;
+            this.comboBox_VaiTro.SelectedIndexChanged += new System.EventHandler(this.comboBox_VaiTro_SelectedIndexChanged);
             // 
             // comboBox_MaTK
             // 
@@ -165,6 +184,7 @@ namespace Bookstore_Management
             this.comboBox_MaTK.Name = "comboBox_MaTK";
             this.comboBox_MaTK.Size = new System.Drawing.Size(202, 31);
             this.comboBox_MaTK.TabIndex = 13;
+            this.comboBox_MaTK.SelectedIndexChanged += new System.EventHandler(this.comboBox_MaTK_SelectedIndexChanged);
             // 
             // button_Delete
             // 
@@ -179,6 +199,7 @@ namespace Bookstore_Management
             this.button_Delete.TabIndex = 12;
             this.button_Delete.Text = "XÓA";
             this.button_Delete.UseVisualStyleBackColor = false;
+            this.button_Delete.Click += new System.EventHandler(this.button_Delete_Click);
             // 
             // button_Save
             // 
@@ -193,6 +214,7 @@ namespace Bookstore_Management
             this.button_Save.TabIndex = 11;
             this.button_Save.Text = "CẬP NHẬT";
             this.button_Save.UseVisualStyleBackColor = false;
+            this.button_Save.Click += new System.EventHandler(this.button_Save_Click);
             // 
             // label6
             // 
@@ -259,20 +281,6 @@ namespace Bookstore_Management
             this.dataGridView_TaiKhoan.Size = new System.Drawing.Size(809, 374);
             this.dataGridView_TaiKhoan.TabIndex = 0;
             // 
-            // button_Add
-            // 
-            this.button_Add.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(179)))), ((int)(((byte)(188)))));
-            this.button_Add.FlatAppearance.BorderSize = 0;
-            this.button_Add.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button_Add.Font = new System.Drawing.Font("Arial", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button_Add.ForeColor = System.Drawing.Color.White;
-            this.button_Add.Location = new System.Drawing.Point(33, 572);
-            this.button_Add.Name = "button_Add";
-            this.button_Add.Size = new System.Drawing.Size(235, 49);
-            this.button_Add.TabIndex = 18;
-            this.button_Add.Text = "THÊM";
-            this.button_Add.UseVisualStyleBackColor = false;
-            // 
             // TaiKhoan
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -285,6 +293,7 @@ namespace Bookstore_Management
             this.Name = "TaiKhoan";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "TaiKhoan";
+            this.Load += new System.EventHandler(this.TaiKhoan_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Avatar)).EndInit();
