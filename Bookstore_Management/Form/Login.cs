@@ -25,7 +25,7 @@ namespace Bookstore_Management
 
         private void button_Login_Click(object sender, EventArgs e)
         {
-            //this.Hide();
+            this.Hide();
 
             string username = textBox_TenTK.Text;
             string password = textBox_MatKhau.Text;
@@ -33,7 +33,6 @@ namespace Bookstore_Management
             if (AuthenticateUser(username, password))
             {
                 MessageBox.Show("Đăng nhập thành công");
-               // this.Close();
                 DashBoard main = new DashBoard();
                 main.Show();
 
