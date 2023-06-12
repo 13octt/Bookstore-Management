@@ -66,6 +66,7 @@ namespace Bookstore_Management
             this.button_TimKiem.TabIndex = 42;
             this.button_TimKiem.Text = "Tìm Kiếm";
             this.button_TimKiem.UseVisualStyleBackColor = false;
+            this.button_TimKiem.Click += new System.EventHandler(this.button_TimKiem_Click);
             // 
             // dateTimePicker_NgayBan
             // 
@@ -75,6 +76,7 @@ namespace Bookstore_Management
             this.dateTimePicker_NgayBan.Name = "dateTimePicker_NgayBan";
             this.dateTimePicker_NgayBan.Size = new System.Drawing.Size(148, 30);
             this.dateTimePicker_NgayBan.TabIndex = 37;
+            this.dateTimePicker_NgayBan.ValueChanged += new System.EventHandler(this.dateTimePicker_NgayBan_ValueChanged);
             // 
             // label4
             // 
@@ -94,7 +96,7 @@ namespace Bookstore_Management
             this.label1.ForeColor = System.Drawing.Color.DeepPink;
             this.label1.Location = new System.Drawing.Point(349, 13);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(244, 29);
+            this.label1.Size = new System.Drawing.Size(234, 27);
             this.label1.TabIndex = 1;
             this.label1.Text = "LỊCH SỬ BÁN SÁCH";
             // 
