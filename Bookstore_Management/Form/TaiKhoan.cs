@@ -28,10 +28,8 @@ namespace Bookstore_Management
             connection = new SqlConnection(connectionString);
             adapter = new SqlDataAdapter();
             dataTable = new DataTable();
-
             ReferenceUI();
-            //LoadTaiKhoanToComboBox();
-            UpdateGridView();
+            LoadTaiKhoanToComboBox();
         }
 
         private void TaiKhoan_Load(object sender, EventArgs e)
@@ -44,7 +42,6 @@ namespace Bookstore_Management
         private void pictureBox_Exit_Click(object sender, EventArgs e)
         {
             this.Hide();
-
         }
 
         private void button_Add_Click(object sender, EventArgs e)
@@ -52,10 +49,7 @@ namespace Bookstore_Management
             ReferenceUI();
             AddAccount(maTK, tenTK, matKhau, maND, vaiTro);
             UpdateGridView();
-            //CleanData();
-            //UpdateGridView();
         }
-
 
         private void button_Save_Click(object sender, EventArgs e)
         {
@@ -75,7 +69,6 @@ namespace Bookstore_Management
             CleanData();
             UpdateGridView();
         }
-
 
 
         private void ReferenceUI()
@@ -127,27 +120,8 @@ namespace Bookstore_Management
             }
         }
 
-        private void UpdateGridView()
-        {
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                connection.Open();
-                string query = "SELECT MaTK, TenTK, MatKhau, MaNguoiDung, VaiTro FROM TAIKHOAN";
-                using (SqlCommand command = new SqlCommand(query, connection))
-                {
-                    SqlDataAdapter adapter = new SqlDataAdapter(command);
-                    DataTable dataTable = new DataTable();
-                    adapter.Fill(dataTable);
-
-                    dataGridView_TaiKhoan.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-                    dataGridView_TaiKhoan.DataSource = dataTable;
-                }
-            }
-        }
-
         private void AddAccount(string maTK, string tenTK, string matKhau, string maNguoiDung, string vaiTro)
         {
-            // Kiểm tra điều kiện nhập không được để trống
             if (string.IsNullOrWhiteSpace(maTK) || string.IsNullOrWhiteSpace(tenTK) ||
                 string.IsNullOrWhiteSpace(matKhau) || string.IsNullOrWhiteSpace(maNguoiDung) ||
                 string.IsNullOrWhiteSpace(vaiTro))
@@ -172,22 +146,12 @@ namespace Bookstore_Management
                     command.ExecuteNonQuery();
 
                 }
-
-                // Cập nhật dữ liệu lên GridView
-                //LoadDataToGridView();
                 UpdateGridView();
             }
             else
             {
-                // MaTK đã tồn tại trong cơ sở dữ liệu, thông báo lỗi và xử lý tương ứng
                 MessageBox.Show("MaTK đã tồn tại trong cơ sở dữ liệu. Vui lòng chọn MaTK khác.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-                //// Đặt giá trị MaTK về trống
-                //comboBox_MaTK.SelectedIndex = -1;
             }
-
-            
-
         }
 
         private void DeleteAccount(String maTK)
@@ -199,7 +163,7 @@ namespace Bookstore_Management
                 return;
             }
 
-            if(IsMaTKValid(maTK) == false)
+            if (IsMaTKValid(maTK) == false)
             {
                 // Thực hiện xóa tài khoản từ database
                 // (sử dụng câu lệnh DELETE)
@@ -215,8 +179,27 @@ namespace Bookstore_Management
             else
             {
                 MessageBox.Show("MaTK không tồn tại trong cơ sở dữ liệu. Vui lòng chọn MaTK khác.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            } 
+            }
         }
+
+        private void UpdateGridView()
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                string query = "SELECT MaTK, TenTK, MatKhau, MaNguoiDung, VaiTro FROM TAIKHOAN";
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    SqlDataAdapter adapter = new SqlDataAdapter(command);
+                    DataTable dataTable = new DataTable();
+                    adapter.Fill(dataTable);
+
+                    dataGridView_TaiKhoan.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+                    dataGridView_TaiKhoan.DataSource = dataTable;
+                }
+            }
+        }
+
         private void LoadTaiKhoanToComboBox()
         {
             string query = "SELECT MaTK, MaNguoiDung, VaiTro FROM TAIKHOAN";
