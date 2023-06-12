@@ -38,8 +38,8 @@ namespace Bookstore_Management
         private void TaiKhoan_Load(object sender, EventArgs e)
         {
             UpdateGridView();
-            LoadMaNguoiDung("MaNguoiDung", comboBox_MaND);
-            LoadMaNguoiDung("VaiTro", comboBox_VaiTro);
+            LoadDistinctComboBox("MaNguoiDung", comboBox_MaND);
+            LoadDistinctComboBox("VaiTro", comboBox_VaiTro);
         }
 
         private void pictureBox_Exit_Click(object sender, EventArgs e)
@@ -72,7 +72,6 @@ namespace Bookstore_Management
         {
             ReferenceUI();
             DeleteAccount(maTK);
-            //LoadDataToGridView();
             UpdateGridView();
             CleanData();
             UpdateGridView();
@@ -100,26 +99,32 @@ namespace Bookstore_Management
 
         private void UpdateAccount(string maTK, string tenTK, string matKhau, string maNguoiDung, string vaiTro)
         {
-            // Kiểm tra điều kiện nhập không được để trống
             if (string.IsNullOrEmpty(maTK) || string.IsNullOrEmpty(tenTK) || string.IsNullOrEmpty(matKhau) || string.IsNullOrEmpty(maNguoiDung) || string.IsNullOrEmpty(vaiTro))
             {
                 MessageBox.Show("Vui lòng nhập đầy đủ thông tin tài khoản!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            if(IsMaTKValid(maTK) == false)
             {
-                connection.Open();
-                string query = "UPDATE TAIKHOAN SET TenTK = @TenTK, MatKhau = @MatKhau, MaNguoiDung = @MaNguoiDung, VaiTro = @VaiTro WHERE MaTK = @MaTK";
-                using (SqlCommand command = new SqlCommand(query, connection))
+                using (SqlConnection connection = new SqlConnection(connectionString))
                 {
-                    command.Parameters.AddWithValue("@TenTK", tenTK);
-                    command.Parameters.AddWithValue("@MatKhau", matKhau);
-                    command.Parameters.AddWithValue("@MaNguoiDung", maNguoiDung);
-                    command.Parameters.AddWithValue("@VaiTro", vaiTro);
-                    command.Parameters.AddWithValue("@MaTK", maTK);
-                    command.ExecuteNonQuery();
+                    connection.Open();
+                    string query = "UPDATE TAIKHOAN SET TenTK = @TenTK, MatKhau = @MatKhau, MaNguoiDung = @MaNguoiDung, VaiTro = @VaiTro WHERE MaTK = @MaTK";
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@TenTK", tenTK);
+                        command.Parameters.AddWithValue("@MatKhau", matKhau);
+                        command.Parameters.AddWithValue("@MaNguoiDung", maNguoiDung);
+                        command.Parameters.AddWithValue("@VaiTro", vaiTro);
+                        command.Parameters.AddWithValue("@MaTK", maTK);
+                        command.ExecuteNonQuery();
+                    }
                 }
+            }
+            else
+            {
+                MessageBox.Show("MaTK không tồn tại trong cơ sở dữ liệu. Vui lòng chọn MaTK khác.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -141,8 +146,6 @@ namespace Bookstore_Management
             }
         }
 
-
-
         private void AddAccount(string maTK, string tenTK, string matKhau, string maNguoiDung, string vaiTro)
         {
             // Kiểm tra điều kiện nhập không được để trống
@@ -154,23 +157,38 @@ namespace Bookstore_Management
                 return;
             }
 
-            string query = "INSERT INTO TAIKHOAN (MaTK, TenTK, MatKhau, MaNguoiDung, VaiTro) " +
-                           "VALUES (@MaTK, @TenTK, @MatKhau, @MaNguoiDung, @VaiTro)";
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            if (IsMaTKValid(maTK))
             {
-                connection.Open();
-                SqlCommand command = new SqlCommand(query, connection);
-                command.Parameters.AddWithValue("@MaTK", maTK);
-                command.Parameters.AddWithValue("@TenTK", tenTK);
-                command.Parameters.AddWithValue("@MatKhau", matKhau);
-                command.Parameters.AddWithValue("@MaNguoiDung", maNguoiDung);
-                command.Parameters.AddWithValue("@VaiTro", vaiTro);
-                command.ExecuteNonQuery();
+                string query = "INSERT INTO TAIKHOAN (MaTK, TenTK, MatKhau, MaNguoiDung, VaiTro) " +
+                           "VALUES (@MaTK, @TenTK, @MatKhau, @MaNguoiDung, @VaiTro)";
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    SqlCommand command = new SqlCommand(query, connection);
+                    command.Parameters.AddWithValue("@MaTK", maTK);
+                    command.Parameters.AddWithValue("@TenTK", tenTK);
+                    command.Parameters.AddWithValue("@MatKhau", matKhau);
+                    command.Parameters.AddWithValue("@MaNguoiDung", maNguoiDung);
+                    command.Parameters.AddWithValue("@VaiTro", vaiTro);
+                    command.ExecuteNonQuery();
+
+                }
+
+                // Cập nhật dữ liệu lên GridView
+                //LoadDataToGridView();
+                UpdateGridView();
+            }
+            else
+            {
+                // MaTK đã tồn tại trong cơ sở dữ liệu, thông báo lỗi và xử lý tương ứng
+                MessageBox.Show("MaTK đã tồn tại trong cơ sở dữ liệu. Vui lòng chọn MaTK khác.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                //// Đặt giá trị MaTK về trống
+                //comboBox_MaTK.SelectedIndex = -1;
             }
 
-            // Cập nhật dữ liệu lên GridView
-            //LoadDataToGridView();
-            UpdateGridView();
+            
+
         }
 
         private void DeleteAccount(String maTK)
@@ -182,16 +200,25 @@ namespace Bookstore_Management
                 return;
             }
 
-            // Thực hiện xóa tài khoản từ database
-            // (sử dụng câu lệnh DELETE)
-            string query = "DELETE FROM TAIKHOAN WHERE MaTK = @MaTK";
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            if(IsMaTKValid(maTK) == false)
             {
-                connection.Open();
-                SqlCommand command = new SqlCommand(query, connection);
-                command.Parameters.AddWithValue("@MaTK", maTK);
-                command.ExecuteNonQuery();
+                // Thực hiện xóa tài khoản từ database
+                // (sử dụng câu lệnh DELETE)
+                string query = "DELETE FROM TAIKHOAN WHERE MaTK = @MaTK";
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    SqlCommand command = new SqlCommand(query, connection);
+                    command.Parameters.AddWithValue("@MaTK", maTK);
+                    command.ExecuteNonQuery();
+                }
             }
+            else
+            {
+                MessageBox.Show("MaTK không tồn tại trong cơ sở dữ liệu. Vui lòng chọn MaTK khác.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            
         }
 
         private void LoadDataToGridView()
@@ -236,7 +263,7 @@ namespace Bookstore_Management
             }
         }
 
-        private void LoadMaNguoiDung(String columnName, System.Windows.Forms.ComboBox comboBox)
+        private void LoadDistinctComboBox(String columnName, System.Windows.Forms.ComboBox comboBox)
         {
             connection.Open();
 
@@ -255,6 +282,27 @@ namespace Bookstore_Management
             connection.Close();
         }
 
+        private bool IsMaTKValid(string maTK)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+
+                SqlCommand command = new SqlCommand("SELECT COUNT(*) FROM TAIKHOAN WHERE MaTK = @MaTK", connection);
+                command.Parameters.AddWithValue("@MaTK", maTK);
+
+                int count = (int)command.ExecuteScalar();
+
+                if (count > 0)
+                {
+                    return false; // TK Tồn tại
+                }
+                else
+                {
+                    return true;
+                }
+            }
+        }
 
     }
 }
