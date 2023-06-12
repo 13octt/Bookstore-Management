@@ -30,9 +30,8 @@ namespace Bookstore_Management
             dataTable = new DataTable();
 
             ReferenceUI();
-            LoadTaiKhoanToComboBox();
-
-
+            //LoadTaiKhoanToComboBox();
+            UpdateGridView();
         }
 
         private void TaiKhoan_Load(object sender, EventArgs e)
@@ -216,29 +215,10 @@ namespace Bookstore_Management
             else
             {
                 MessageBox.Show("MaTK không tồn tại trong cơ sở dữ liệu. Vui lòng chọn MaTK khác.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-
-            
+            } 
         }
-
-        private void LoadDataToGridView()
-        {
-            string query = "SELECT * FROM TAIKHOAN";
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                connection.Open();
-                SqlCommand command = new SqlCommand(query, connection);
-                SqlDataAdapter adapter = new SqlDataAdapter(command);
-                DataTable dataTable = new DataTable();
-                adapter.Fill(dataTable);
-                dataGridView_TaiKhoan.DataSource = dataTable;
-                //dataGridView.DataSource = dataTable;
-            }
-        }
-
         private void LoadTaiKhoanToComboBox()
         {
-            // Thực hiện truy vấn để lấy dữ liệu từ bảng "TAIKHOAN"
             string query = "SELECT MaTK, MaNguoiDung, VaiTro FROM TAIKHOAN";
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
@@ -246,19 +226,16 @@ namespace Bookstore_Management
                 SqlCommand command = new SqlCommand(query, connection);
                 SqlDataReader reader = command.ExecuteReader();
 
-                // Đọc dữ liệu từ SqlDataReader và gán vào các ComboBox tương ứng
                 while (reader.Read())
                 {
                     string maTK = reader.GetString(0);
                     string maNguoiDung = reader.GetString(1);
                     string vaiTro = reader.GetString(2);
 
-                    // Gán giá trị vào ComboBox tương ứng
                     comboBox_MaTK.Items.Add(maTK);
                     comboBox_MaND.Items.Add(maNguoiDung);
                     comboBox_VaiTro.Items.Add(vaiTro);
                 }
-
                 reader.Close();
             }
         }
@@ -269,16 +246,15 @@ namespace Bookstore_Management
 
             string query = $"SELECT DISTINCT {columnName} FROM TAIKHOAN";
             SqlCommand command = new SqlCommand(query, connection);
-
             SqlDataReader reader = command.ExecuteReader();
             comboBox.Items.Clear();
+
             while (reader.Read())
             {
                 string value = reader[columnName].ToString();
                 comboBox.Items.Add(value);
             }
             reader.Close();
-
             connection.Close();
         }
 
@@ -290,7 +266,6 @@ namespace Bookstore_Management
 
                 SqlCommand command = new SqlCommand("SELECT COUNT(*) FROM TAIKHOAN WHERE MaTK = @MaTK", connection);
                 command.Parameters.AddWithValue("@MaTK", maTK);
-
                 int count = (int)command.ExecuteScalar();
 
                 if (count > 0)
@@ -299,10 +274,9 @@ namespace Bookstore_Management
                 }
                 else
                 {
-                    return true;
+                    return true; // TK k tồn tại
                 }
             }
         }
-
     }
 }
