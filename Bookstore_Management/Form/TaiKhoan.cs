@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Bookstore_Management
 {
@@ -28,8 +29,17 @@ namespace Bookstore_Management
             adapter = new SqlDataAdapter();
             dataTable = new DataTable();
 
-            referenceUI();
+            ReferenceUI();
+            LoadTaiKhoanToComboBox();
 
+
+        }
+
+        private void TaiKhoan_Load(object sender, EventArgs e)
+        {
+            UpdateGridView();
+            LoadMaNguoiDung("MaNguoiDung", comboBox_MaND);
+            LoadMaNguoiDung("VaiTro", comboBox_VaiTro);
         }
 
         private void pictureBox_Exit_Click(object sender, EventArgs e)
@@ -40,7 +50,7 @@ namespace Bookstore_Management
 
         private void button_Add_Click(object sender, EventArgs e)
         {
-            referenceUI();
+            ReferenceUI();
             AddAccount(maTK, tenTK, matKhau, maND, vaiTro);
             UpdateGridView();
             //CleanData();
@@ -51,41 +61,26 @@ namespace Bookstore_Management
         private void button_Save_Click(object sender, EventArgs e)
         {
 
-            referenceUI();
-            updateAccount(maTK, tenTK, matKhau, maND, vaiTro);
-
-            // Cập nhật GridView
+            ReferenceUI();
+            UpdateAccount(maTK, tenTK, matKhau, maND, vaiTro);
             UpdateGridView();
-            // Xóa trắng các trường nhập liệu
             CleanData();
             UpdateGridView();
         }
 
         private void button_Delete_Click(object sender, EventArgs e)
         {
-            // Xoa Tai Khoan
-            referenceUI();
-            deleteAccount(maTK);
-            LoadDataToGridView();
+            ReferenceUI();
+            DeleteAccount(maTK);
+            //LoadDataToGridView();
+            UpdateGridView();
             CleanData();
             UpdateGridView();
         }
 
 
-        // Seach and show to GridView
 
-        private void comboBox_MaTK_SelectedIndexChanged(object sender, EventArgs e){ findAccount();}
-
-        private void textBox_TenTK_TextChanged(object sender, EventArgs e){ findAccount(); }
-
-        private void textBox_MatKhau_TextChanged(object sender, EventArgs e){ findAccount(); }
-
-        private void comboBox_MaND_SelectedIndexChanged(object sender, EventArgs e){ findAccount(); }
-
-        private void comboBox_VaiTro_SelectedIndexChanged(object sender, EventArgs e){ findAccount(); }
-
-
-        private void referenceUI()
+        private void ReferenceUI()
         {
             maTK = comboBox_MaTK.Text;
             tenTK = textBox_TenTK.Text;
@@ -103,47 +98,7 @@ namespace Bookstore_Management
             comboBox_VaiTro.Text = "";
         }
 
-
-        private void findAccount()
-        {
-
-            string query = "SELECT * FROM TAIKHOAN WHERE " +
-                "MaTK LIKE @MaTK AND " +
-                "TenTK LIKE @TenTK AND " +
-                "MatKhau LIKE @MatKhau AND " +
-                "MaNguoiDung LIKE @MaNguoiDung AND " +
-                "VaiTro LIKE @VaiTro";
-
-            SqlCommand command = new SqlCommand(query, connection);
-            command.Parameters.AddWithValue("@MaTK", "%" + maTK + "%");
-            command.Parameters.AddWithValue("@TenTK", "%" + tenTK + "%");
-            command.Parameters.AddWithValue("@MatKhau", "%" + matKhau + "%");
-            command.Parameters.AddWithValue("@MaNguoiDung", "%" + maND + "%");
-            command.Parameters.AddWithValue("@VaiTro", "%" + vaiTro + "%");
-
-            adapter.SelectCommand = command;
-
-            try
-            {
-                connection.Open();
-
-                dataTable.Clear(); 
-                adapter.Fill(dataTable);
-
-                dataGridView_TaiKhoan.DataSource = dataTable;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Lỗi truy vấn: " + ex.Message);
-            }
-            finally
-            {
-                connection.Close();
-            }
-
-        }
-
-        private void updateAccount(string maTK, string tenTK, string matKhau, string maNguoiDung, string vaiTro)
+        private void UpdateAccount(string maTK, string tenTK, string matKhau, string maNguoiDung, string vaiTro)
         {
             // Kiểm tra điều kiện nhập không được để trống
             if (string.IsNullOrEmpty(maTK) || string.IsNullOrEmpty(tenTK) || string.IsNullOrEmpty(matKhau) || string.IsNullOrEmpty(maNguoiDung) || string.IsNullOrEmpty(vaiTro))
@@ -168,41 +123,25 @@ namespace Bookstore_Management
             }
         }
 
-        private void TaiKhoan_Load(object sender, EventArgs e)
-        {
-            UpdateGridView();
-        }
-
         private void UpdateGridView()
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                // Mở kết nối đến database
                 connection.Open();
-
-                // Tạo câu truy vấn SQL để lấy danh sách tài khoản
                 string query = "SELECT MaTK, TenTK, MatKhau, MaNguoiDung, VaiTro FROM TAIKHOAN";
-
-                // Tạo đối tượng SqlCommand để thực hiện câu truy vấn
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
-                    // Tạo đối tượng SqlDataAdapter để lấy dữ liệu từ SqlCommand
                     SqlDataAdapter adapter = new SqlDataAdapter(command);
-
-                    // Tạo đối tượng DataTable để lưu trữ dữ liệu từ SqlDataAdapter
                     DataTable dataTable = new DataTable();
-
-                    // Đổ dữ liệu vào DataTable
                     adapter.Fill(dataTable);
 
-                    // Gán DataTable làm nguồn dữ liệu cho GridView
                     dataGridView_TaiKhoan.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
                     dataGridView_TaiKhoan.DataSource = dataTable;
-
-                    //dataGridView1.DataSource = dataTable;
                 }
             }
         }
+
+
 
         private void AddAccount(string maTK, string tenTK, string matKhau, string maNguoiDung, string vaiTro)
         {
@@ -215,8 +154,6 @@ namespace Bookstore_Management
                 return;
             }
 
-            // Thực hiện thêm tài khoản vào database
-            // (sử dụng câu lệnh INSERT INTO)
             string query = "INSERT INTO TAIKHOAN (MaTK, TenTK, MatKhau, MaNguoiDung, VaiTro) " +
                            "VALUES (@MaTK, @TenTK, @MatKhau, @MaNguoiDung, @VaiTro)";
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -232,38 +169,11 @@ namespace Bookstore_Management
             }
 
             // Cập nhật dữ liệu lên GridView
-            LoadDataToGridView();
-            //UpdateGridView();
+            //LoadDataToGridView();
+            UpdateGridView();
         }
 
-
-
-        private void addAccount()
-        {
-            
-            //if (comboBox_MaTK.Text == "" || comboBox_MaND.Text == "" || comboBox_VaiTro.Text == ""
-            //                || textBox_TenTK.Text == "" || textBox_MatKhau.Text == "")
-            //{
-            //    MessageBox.Show("Vui lòng điền đủ thông tin");
-            //}
-            //else
-            //{
-            //    bool flag = false;
-            //    if(dataGridView_TaiKhoan.Rows.Count != 0) 
-            //    {
-            //        foreach (var i in comboBox_MaTK.Items)
-            //            if (i.ToString().Trim() == comboBox_MaTK.Text.Trim())
-            //            {
-            //                flag = true;
-            //                break;
-            //            }
-            //    }
-
-            //    string query = "INSERT INTO TAIKHOAN (MaTK, TenTK, MatKhau, MaNguoiDung, VaiTro) VALUES (@MaTK, @TenTK, @MatKhau, @MaNguoiDung, @VaiTro)";
-            //}
-        }
-
-        private void deleteAccount(String maTK)
+        private void DeleteAccount(String maTK)
         {
             // Kiểm tra điều kiện nhập không được để trống
             if (string.IsNullOrWhiteSpace(maTK))
@@ -297,6 +207,52 @@ namespace Bookstore_Management
                 dataGridView_TaiKhoan.DataSource = dataTable;
                 //dataGridView.DataSource = dataTable;
             }
+        }
+
+        private void LoadTaiKhoanToComboBox()
+        {
+            // Thực hiện truy vấn để lấy dữ liệu từ bảng "TAIKHOAN"
+            string query = "SELECT MaTK, MaNguoiDung, VaiTro FROM TAIKHOAN";
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                SqlCommand command = new SqlCommand(query, connection);
+                SqlDataReader reader = command.ExecuteReader();
+
+                // Đọc dữ liệu từ SqlDataReader và gán vào các ComboBox tương ứng
+                while (reader.Read())
+                {
+                    string maTK = reader.GetString(0);
+                    string maNguoiDung = reader.GetString(1);
+                    string vaiTro = reader.GetString(2);
+
+                    // Gán giá trị vào ComboBox tương ứng
+                    comboBox_MaTK.Items.Add(maTK);
+                    comboBox_MaND.Items.Add(maNguoiDung);
+                    comboBox_VaiTro.Items.Add(vaiTro);
+                }
+
+                reader.Close();
+            }
+        }
+
+        private void LoadMaNguoiDung(String columnName, System.Windows.Forms.ComboBox comboBox)
+        {
+            connection.Open();
+
+            string query = $"SELECT DISTINCT {columnName} FROM TAIKHOAN";
+            SqlCommand command = new SqlCommand(query, connection);
+
+            SqlDataReader reader = command.ExecuteReader();
+            comboBox.Items.Clear();
+            while (reader.Read())
+            {
+                string value = reader[columnName].ToString();
+                comboBox.Items.Add(value);
+            }
+            reader.Close();
+
+            connection.Close();
         }
 
 

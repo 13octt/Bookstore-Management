@@ -144,7 +144,7 @@ namespace Bookstore_Management
             this.textBox_MatKhau.Size = new System.Drawing.Size(202, 30);
             this.textBox_MatKhau.TabIndex = 17;
             this.textBox_MatKhau.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.textBox_MatKhau.TextChanged += new System.EventHandler(this.textBox_MatKhau_TextChanged);
+            //this.textBox_MatKhau.TextChanged += new System.EventHandler(this.textBox_MatKhau_TextChanged);
             // 
             // textBox_TenTK
             // 
@@ -154,7 +154,7 @@ namespace Bookstore_Management
             this.textBox_TenTK.Size = new System.Drawing.Size(202, 30);
             this.textBox_TenTK.TabIndex = 16;
             this.textBox_TenTK.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.textBox_TenTK.TextChanged += new System.EventHandler(this.textBox_TenTK_TextChanged);
+            //this.textBox_TenTK.TextChanged += new System.EventHandler(this.textBox_TenTK_TextChanged);
             // 
             // comboBox_MaND
             // 
@@ -164,7 +164,7 @@ namespace Bookstore_Management
             this.comboBox_MaND.Name = "comboBox_MaND";
             this.comboBox_MaND.Size = new System.Drawing.Size(163, 31);
             this.comboBox_MaND.TabIndex = 15;
-            this.comboBox_MaND.SelectedIndexChanged += new System.EventHandler(this.comboBox_MaND_SelectedIndexChanged);
+            //this.comboBox_MaND.SelectedIndexChanged += new System.EventHandler(this.comboBox_MaND_SelectedIndexChanged);
             // 
             // comboBox_VaiTro
             // 
@@ -174,7 +174,7 @@ namespace Bookstore_Management
             this.comboBox_VaiTro.Name = "comboBox_VaiTro";
             this.comboBox_VaiTro.Size = new System.Drawing.Size(163, 32);
             this.comboBox_VaiTro.TabIndex = 14;
-            this.comboBox_VaiTro.SelectedIndexChanged += new System.EventHandler(this.comboBox_VaiTro_SelectedIndexChanged);
+            //this.comboBox_VaiTro.SelectedIndexChanged += new System.EventHandler(this.comboBox_VaiTro_SelectedIndexChanged);
             // 
             // comboBox_MaTK
             // 
@@ -184,7 +184,7 @@ namespace Bookstore_Management
             this.comboBox_MaTK.Name = "comboBox_MaTK";
             this.comboBox_MaTK.Size = new System.Drawing.Size(202, 31);
             this.comboBox_MaTK.TabIndex = 13;
-            this.comboBox_MaTK.SelectedIndexChanged += new System.EventHandler(this.comboBox_MaTK_SelectedIndexChanged);
+            //this.comboBox_MaTK.SelectedIndexChanged += new System.EventHandler(this.comboBox_MaTK_SelectedIndexChanged);
             // 
             // button_Delete
             // 
