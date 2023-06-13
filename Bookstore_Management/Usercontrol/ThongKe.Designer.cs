@@ -34,26 +34,26 @@ namespace Bookstore_Management
             this.label_KhachHang = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.panel6 = new System.Windows.Forms.Panel();
+            this.pictureBox_Avatar = new System.Windows.Forms.PictureBox();
             this.panel3 = new System.Windows.Forms.Panel();
             this.label_TongSachBan = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.panel5 = new System.Windows.Forms.Panel();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label_TongSachNhap = new System.Windows.Forms.Label();
             this.label_UserName = new System.Windows.Forms.Label();
             this.panel4 = new System.Windows.Forms.Panel();
-            this.pictureBox_Avatar = new System.Windows.Forms.PictureBox();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel_ThongKe.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Avatar)).BeginInit();
             this.panel3.SuspendLayout();
             this.panel5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Avatar)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -87,7 +87,7 @@ namespace Bookstore_Management
             this.label_KhachHang.ForeColor = System.Drawing.Color.HotPink;
             this.label_KhachHang.Location = new System.Drawing.Point(63, 75);
             this.label_KhachHang.Name = "label_KhachHang";
-            this.label_KhachHang.Size = new System.Drawing.Size(132, 56);
+            this.label_KhachHang.Size = new System.Drawing.Size(128, 55);
             this.label_KhachHang.TabIndex = 3;
             this.label_KhachHang.Text = "1000";
             // 
@@ -99,7 +99,7 @@ namespace Bookstore_Management
             this.label2.ForeColor = System.Drawing.Color.Black;
             this.label2.Location = new System.Drawing.Point(36, 158);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(175, 29);
+            this.label2.Size = new System.Drawing.Size(172, 27);
             this.label2.TabIndex = 2;
             this.label2.Text = "KHÁCH HÀNG";
             // 
@@ -111,6 +111,17 @@ namespace Bookstore_Management
             this.panel6.Name = "panel6";
             this.panel6.Size = new System.Drawing.Size(137, 204);
             this.panel6.TabIndex = 1;
+            // 
+            // pictureBox_Avatar
+            // 
+            this.pictureBox_Avatar.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox_Avatar.BackgroundImage = global::Bookstore_Management.Properties.Resources.student2;
+            this.pictureBox_Avatar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pictureBox_Avatar.Location = new System.Drawing.Point(28, 58);
+            this.pictureBox_Avatar.Name = "pictureBox_Avatar";
+            this.pictureBox_Avatar.Size = new System.Drawing.Size(82, 88);
+            this.pictureBox_Avatar.TabIndex = 3;
+            this.pictureBox_Avatar.TabStop = false;
             // 
             // panel3
             // 
@@ -131,7 +142,7 @@ namespace Bookstore_Management
             this.label_TongSachBan.ForeColor = System.Drawing.Color.HotPink;
             this.label_TongSachBan.Location = new System.Drawing.Point(66, 56);
             this.label_TongSachBan.Name = "label_TongSachBan";
-            this.label_TongSachBan.Size = new System.Drawing.Size(132, 56);
+            this.label_TongSachBan.Size = new System.Drawing.Size(128, 55);
             this.label_TongSachBan.TabIndex = 4;
             this.label_TongSachBan.Text = "1000";
             // 
@@ -143,7 +154,7 @@ namespace Bookstore_Management
             this.label1.ForeColor = System.Drawing.Color.Black;
             this.label1.Location = new System.Drawing.Point(27, 161);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(214, 29);
+            this.label1.Size = new System.Drawing.Size(209, 27);
             this.label1.TabIndex = 2;
             this.label1.Text = "TỔNG SÁCH BÁN";
             // 
@@ -155,6 +166,17 @@ namespace Bookstore_Management
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(137, 204);
             this.panel5.TabIndex = 1;
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox2.BackgroundImage = global::Bookstore_Management.Properties.Resources.books;
+            this.pictureBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pictureBox2.Location = new System.Drawing.Point(29, 58);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(82, 88);
+            this.pictureBox2.TabIndex = 4;
+            this.pictureBox2.TabStop = false;
             // 
             // panel1
             // 
@@ -175,7 +197,7 @@ namespace Bookstore_Management
             this.label_TongSachNhap.ForeColor = System.Drawing.Color.HotPink;
             this.label_TongSachNhap.Location = new System.Drawing.Point(63, 70);
             this.label_TongSachNhap.Name = "label_TongSachNhap";
-            this.label_TongSachNhap.Size = new System.Drawing.Size(132, 56);
+            this.label_TongSachNhap.Size = new System.Drawing.Size(128, 55);
             this.label_TongSachNhap.TabIndex = 2;
             this.label_TongSachNhap.Text = "1000";
             // 
@@ -187,7 +209,7 @@ namespace Bookstore_Management
             this.label_UserName.ForeColor = System.Drawing.Color.Black;
             this.label_UserName.Location = new System.Drawing.Point(12, 161);
             this.label_UserName.Name = "label_UserName";
-            this.label_UserName.Size = new System.Drawing.Size(230, 29);
+            this.label_UserName.Size = new System.Drawing.Size(224, 27);
             this.label_UserName.TabIndex = 1;
             this.label_UserName.Text = "TỔNG SÁCH NHẬP";
             // 
@@ -199,28 +221,6 @@ namespace Bookstore_Management
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(137, 204);
             this.panel4.TabIndex = 0;
-            // 
-            // pictureBox_Avatar
-            // 
-            this.pictureBox_Avatar.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBox_Avatar.BackgroundImage = global::Bookstore_Management.Properties.Resources.student2;
-            this.pictureBox_Avatar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pictureBox_Avatar.Location = new System.Drawing.Point(28, 58);
-            this.pictureBox_Avatar.Name = "pictureBox_Avatar";
-            this.pictureBox_Avatar.Size = new System.Drawing.Size(82, 88);
-            this.pictureBox_Avatar.TabIndex = 3;
-            this.pictureBox_Avatar.TabStop = false;
-            // 
-            // pictureBox2
-            // 
-            this.pictureBox2.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBox2.BackgroundImage = global::Bookstore_Management.Properties.Resources.books;
-            this.pictureBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pictureBox2.Location = new System.Drawing.Point(29, 58);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(82, 88);
-            this.pictureBox2.TabIndex = 4;
-            this.pictureBox2.TabStop = false;
             // 
             // pictureBox1
             // 
@@ -245,14 +245,14 @@ namespace Bookstore_Management
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.panel6.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Avatar)).EndInit();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             this.panel5.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel4.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Avatar)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
