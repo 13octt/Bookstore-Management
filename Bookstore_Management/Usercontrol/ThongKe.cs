@@ -14,12 +14,16 @@ namespace Bookstore_Management
     public partial class ThongKe : UserControl
     {
         String connectionString;
-        String soLuongKhachHang;
+        private DatabaseConnection databaseConnection;
+        SqlConnection connection;
         public ThongKe()
         {
             InitializeComponent();
-            connectionString = "Data Source=DESKTOP-EQ1GSOP\\SQLEXPRESS;Initial Catalog=QLNS;Integrated Security=True;";
 
+            databaseConnection = new DatabaseConnection();
+
+            //connectionString = "Data Source=DESKTOP-EQ1GSOP\\SQLEXPRESS;Initial Catalog=QLNS;Integrated Security=True;";
+            connection = databaseConnection.OpenConnection();
             int tongKH = CountKhachHang();
             label_KhachHang.Text = tongKH.ToString();
 
@@ -33,9 +37,6 @@ namespace Bookstore_Management
 
         public int CountKhachHang()
         {
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                connection.Open();
 
                 string query = "SELECT COUNT(DISTINCT MaKH) AS TongSoKhachHang FROM KHACHHANG";
                 using (SqlCommand command = new SqlCommand(query, connection))
@@ -43,35 +44,26 @@ namespace Bookstore_Management
                     int totalCount = (int)command.ExecuteScalar();
                     return totalCount;
                 }
-            }
         }
 
         public int CountSachNhap()
         {
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                connection.Open();
                 string query = "SELECT SUM(SachDaNhap) FROM BAOCAOTONKHO";
                 using(SqlCommand command = new SqlCommand(query, connection))
                 {
                     int totalCount = (int)command.ExecuteScalar();
                     return totalCount;
                 }
-            }
         }
 
         public int CountSachBan()
         {
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                connection.Open();
                 string query = "SELECT SUM(SachDaBan) FROM BAOCAOTONKHO";
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
                     int totalCount = (int)command.ExecuteScalar();
                     return totalCount;
                 }
-            }
         }
 
 
