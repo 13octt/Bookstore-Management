@@ -13,9 +13,13 @@ namespace Bookstore_Management
 {
     public partial class Login : Form
     {
+        DatabaseConnection databaseConnection;
+        SqlConnection connection;
         public Login()
         {
             InitializeComponent();
+            databaseConnection = new DatabaseConnection();
+            connection = databaseConnection.OpenConnection();
         }
 
         private void pictureBox_Exit_Click(object sender, EventArgs e)
@@ -49,26 +53,16 @@ namespace Bookstore_Management
         private bool AuthenticateUser(string username, string password)
         {
             bool isAuthenticated = false;
-            string connectionString = "Data Source=DESKTOP-EQ1GSOP\\SQLEXPRESS;Initial Catalog=QLNS;Integrated Security=True;";
+            string query = "SELECT COUNT(*) FROM TAIKHOAN WHERE TenTK = @Username AND MatKhau = @Password";
 
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            SqlCommand command = new SqlCommand(query, connection);
+            command.Parameters.AddWithValue("@Username", username);
+            command.Parameters.AddWithValue("@Password", password);
+            int count = (int)command.ExecuteScalar();
+            if (count > 0)
             {
-                string query = "SELECT COUNT(*) FROM TAIKHOAN WHERE TenTK = @Username AND MatKhau = @Password";
-
-                SqlCommand command = new SqlCommand(query, connection);
-                command.Parameters.AddWithValue("@Username", username);
-                command.Parameters.AddWithValue("@Password", password);
-
-                connection.Open();
-
-                int count = (int)command.ExecuteScalar();
-
-                if (count > 0)
-                {
-                    isAuthenticated = true;
-                }
+                isAuthenticated = true;
             }
-
             return isAuthenticated;
         }
     }
