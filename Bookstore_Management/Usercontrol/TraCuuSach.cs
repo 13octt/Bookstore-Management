@@ -17,13 +17,15 @@ namespace Bookstore_Management
         private SqlConnection connection;
         private SqlDataAdapter adapter;
         private DataTable dataTable;
+        DatabaseConnection databaseConnection;
 
         public TraCuuSach()
         {
             InitializeComponent();
 
-            connectionString= "Data Source=DESKTOP-EQ1GSOP\\SQLEXPRESS;Initial Catalog=QLNS;Integrated Security=True;";
-            connection = new SqlConnection(connectionString);
+            databaseConnection = new DatabaseConnection();
+            connection = databaseConnection.OpenConnection();
+
             adapter = new SqlDataAdapter();
             dataTable = new DataTable();
         }
@@ -51,7 +53,6 @@ namespace Bookstore_Management
 
             try
             {
-                connection.Open();
                 dataTable.Clear(); 
                 adapter.Fill(dataTable);
                 dataGridView_NhapSach.DataSource = dataTable;
@@ -62,33 +63,21 @@ namespace Bookstore_Management
             }
             finally
             {
-                connection.Close();
+                databaseConnection.CloseConnection();
             }
-
-        }
-
-        private void TraCuuSach_Load(object sender, EventArgs e)
-        {
-            //UpdateGridView();
-            //PerformSearch();
         }
 
         private void UpdateGridView()
         {
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            string query = "SELECT * FROM THONGTINSACH";
+
+            using (SqlCommand command = new SqlCommand(query, connection))
             {
-                connection.Open();
-
-                string query = "SELECT * FROM THONGTINSACH";
-
-                using (SqlCommand command = new SqlCommand(query, connection))
-                {
-                    SqlDataAdapter adapter = new SqlDataAdapter(command);
-                    DataTable dataTable = new DataTable();
-                    adapter.Fill(dataTable);
-                    dataGridView_NhapSach.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-                    dataGridView_NhapSach.DataSource = dataTable;
-                }
+                SqlDataAdapter adapter = new SqlDataAdapter(command);
+                DataTable dataTable = new DataTable();
+                adapter.Fill(dataTable);
+                dataGridView_NhapSach.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+                dataGridView_NhapSach.DataSource = dataTable;
             }
         }
 
