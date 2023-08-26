@@ -1,5 +1,11 @@
 # Bookstore_Management
 
+## LINK BÁO CÁO VỀ PHẦN MỀM QUẢN LÝ NHÀ SÁCH: 
+
+- Link: https://docs.google.com/document/d/14tr3R8Q0bxKtAjtN3jqVtOow_XxNZWl_/edit?usp=sharing&ouid=114991243595131232055&rtpof=true&sd=true 
+
+## UI
+
 ![image](https://github.com/13octt/Bookstore_Management/assets/88072761/2ec77732-36c1-4305-b2e7-b21ab7bd3366)
 
 ![image](https://github.com/13octt/Bookstore_Management/assets/88072761/8bc0dd7f-fe28-40ea-af26-9b8671656f76)
